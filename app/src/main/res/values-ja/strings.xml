@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">フィルムジャーナル</string>
+    <string name="action_settings">設定</string>
+    <string name="hello_world">こんにちは世界！</string>
+    <string name="cameras">カメラ</string>
+    <string name="filmRolls">フィルムロール</string>
+    <string name="lenses">レンズ</string>
+    <string name="photos">写真</string>
+
+    <string-array
+        name="spinner_choices">
+        <item>@string/photos</item>
+        <item>@string/filmRolls</item>
+        <item>@string/lenses</item>
+        <item>@string/cameras</item>
+    </string-array>
+</resources>

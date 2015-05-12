@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+    <item type="color" name="primary">#FF9800</item>
+    <item type="color" name="primaryDark">#F57C00</item>
+    <item type="color" name="accent">#510D0A</item>
+    <item type="color" name="primaryLight">#9bff9800</item>
+
+    -->
+    <item type="color" name="primary">#3F51B5</item>
+    <item type="color" name="primaryDark">#303F9F</item>
+    <item type="color" name="primaryLight">#C5CAE9</item>
+    <item type="color" name="accent">#536DFE</item>
+    <item type="color" name="textIcons">#FFFFFF</item>
+    <item type="color" name="primaryText">#212121</item>
+    <item type="color" name="primaryTextLight">#727272</item>
+    <item type="color" name="dividerColor">#b6b6b6</item>
+
+</resources>

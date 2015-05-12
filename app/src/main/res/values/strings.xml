@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Film Journal</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string-array
+        name="spinner_choices">
+        <item>@string/photos</item>
+        <item>@string/filmRolls</item>
+        <item>@string/lenses</item>
+        <item>@string/cameras</item>
+    </string-array>
+
+
+    <string name="photos">Photos</string>
+    <string name="filmRolls">Film Rolls</string>
+    <string name="lenses">Lenses</string>
+    <string name="cameras">Cameras</string>
+</resources>
