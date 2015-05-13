@@ -123,6 +123,17 @@ public class MainContentHandler extends AppCompatActivity {
             db.startDatabase();
         }
     }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

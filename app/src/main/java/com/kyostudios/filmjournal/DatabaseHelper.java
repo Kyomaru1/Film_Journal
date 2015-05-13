@@ -2,11 +2,13 @@ package com.kyostudios.filmjournal;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class DatabaseHelper extends SQLiteOpenHelper{
@@ -50,7 +52,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             db.execSQL("CREATE TABLE FilmRolls (_id INTEGER PRIMARY KEY AUTOINCREMENT, RollNumber INTEGER, Brand TEXT, Type TEXT, ISO INTEGER, Exposures INTEGER, ExpireDate TEXT);");
             db.execSQL("CREATE TABLE Cameras (_id INTEGER PRIMARY KEY AUTOINCREMENT, Make TEXT, Model TEXT);");
             db.execSQL("CREATE TABLE Lenses (_id INTEGER PRIMARY KEY AUTOINCREMENT, Make TEXT, Model TEXT, Type TEXT, MinF REAL, MaxF REAL, MinLength INTEGER, MaxLength INTEGER, Autofocus INTEGER );");
-            db.execSQL("CREATE TABLE Photos (_id INTEGER PRIMARY KEY AUTOINCREMENT, RollNumber INTEGER, Name TEXT, RollPosition INTEGER, fStop REAL, ShutterSpeed TEXT, FocalLength INTEGER, ExposureComp REAL, Flash INTEGER, Camera TEXT, Lens TEXT);");
+            db.execSQL("CREATE TABLE Photos (_id INTEGER PRIMARY KEY AUTOINCREMENT, RollNumber INTEGER, Name TEXT, RollPosition INTEGER, fStop REAL, ShutterSpeed TEXT, FocalLength INTEGER, ExposureComp REAL, Flash INTEGER, Camera INTEGER, Lens INTEGER);");
             Log.d("TESTING", "Created table FilmRolls");
             Log.d("TESTING", "Created table Cameras");
             Log.d("TESTING", "Created table Lenses");
@@ -89,5 +91,42 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         }
 
         return checkDB != null ? true : false;
+    }
+
+    public ArrayList<String> getCameras(){
+        String[] columns = new String[]{"_id", "Make", "Model"};
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.query("Cameras", columns,"_id >= 1", null, null, null, null);
+        ArrayList<String> results = new ArrayList<>();
+        if(c!=null){
+            c.moveToFirst();
+            do {
+                long id = c.getLong(c.getColumnIndex("_id"));
+                String make = c.getString(c.getColumnIndex("Make"));
+                String model = c.getString(c.getColumnIndex("Model"));
+
+                results.add( Long.toString(id) + ": " + make + " " + model);
+            }while(c.moveToNext());
+        return results;
+
+        }
+        return null;
+    }
+
+    public void removeCamera(long id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("Cameras", "_id = " + id, null);
+
+    }
+
+    public String getCameraModel(long l){
+        String[] columns = new String[]{"_id", "Make", "Model"};
+        Cursor c = db.query("Cameras", columns, "_id = 1", null, null, null, null);
+        if(c!=null){
+            c.moveToFirst();
+            String model = c.getString(2);
+            return model;
+        }
+        return null;
     }
 }
