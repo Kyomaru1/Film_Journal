@@ -16,6 +16,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ActivityCameraEntry"
+            android:theme="@style/EntryTheme"/>
+        <activity android:name=".ActivityFilmRollEntry"
+            android:theme="@style/EntryTheme"/>
+        <activity android:name=".ActivityLensEntry"
+            android:theme="@style/EntryTheme"/>
+        <activity android:name=".ActivityPhotosEntry"
+            android:theme="@style/EntryTheme"/>
     </application>
 
 </manifest>
