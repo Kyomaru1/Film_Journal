@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fab="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -12,7 +13,22 @@
         android:dividerHeight="1px"
         android:clickable="true" />
 
-    <com.melnykov.fab.FloatingActionButton
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_cameras"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_input_add"
+        android:layout_gravity="bottom|end"
+        app:backgroundTint="@color/accent"
+        app:rippleColor="@android:color/white"
+        app:elevation="6dp"
+        app:pressedTranslationZ="12dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"/>
+    <!--<android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_cameras"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,5 +42,6 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="16dp"
-        android:layout_marginRight="16dp"/>
+        android:layout_marginRight="16dp"/>-->
+
 </RelativeLayout>
