@@ -140,7 +140,8 @@
             android:layout_alignLeft="@+id/textView8"
             android:layout_alignStart="@+id/textView8"
             android:layout_alignRight="@+id/filmEntry_exposures"
-            android:layout_alignEnd="@+id/filmEntry_exposures" />
+            android:layout_alignEnd="@+id/filmEntry_exposures"
+            android:layout_marginTop="12dp" />
     </RelativeLayout>
 
 </LinearLayout>

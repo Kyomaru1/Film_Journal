@@ -1,5 +1,6 @@
 package com.kyostudios.filmjournal;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
-import com.melnykov.fab.FloatingActionButton;
+import android.support.design.widget.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -29,8 +30,9 @@ public class FrameFilmRolls extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast toast = Toast.makeText(getActivity().getApplicationContext(), "FAB Film Rolls clicked", Toast.LENGTH_SHORT);
-                toast.show();
+                Intent intent = new Intent(getActivity(), ActivityFilmRollEntry.class);
+                intent.putExtra("Start_EDIT", false);
+                startActivity(intent);
             }
         });
         return rootview;

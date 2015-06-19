@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -29,6 +30,20 @@ public class ActivityFilmRollEntry extends AppCompatActivity{
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_entry);
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+            filmNumber = (EditText) findViewById(R.id.filmEntry_rollNumber);
+            filmBrand = (EditText) findViewById(R.id.filmEntry_brand);
+            filmType = (Spinner) findViewById(R.id.filmEntry_filmType);
+            filmISO = (EditText) findViewById(R.id.filmEntry_iso);
+            filmExposures = (EditText) findViewById(R.id.filmEntry_exposures);
+            filmExpireDate = (EditText) findViewById(R.id.filmEntry_expireDate);
+            title = (TextView) findViewById(R.id.title);
+
+            ArrayAdapter<String> typeSpinnerAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, filmTypes);
+            typeSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            filmType.setAdapter(typeSpinnerAdapter);
+
+            title.setText("Film Roll Entry");
 
         }
         else{
