@@ -9,14 +9,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class DatabaseHelper extends SQLiteOpenHelper{
 
 	SQLiteDatabase db;
 
 	public DatabaseHelper(Context context) {
-		super(context, "filmJournal.db", null, 1);
+		super(context, "filmJournal2.db", null, 1);
 		Log.d("TESTING", "Created Database filmJournal");
 	}
 
@@ -105,7 +104,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         SQLiteDatabase checkDB = null;
 
         try{
-            String myPath = "/data/data/com.kyostudios.filmjournal/databases/filmJournal.db";
+            String myPath = "/data/data/com.kyostudios.filmjournal/databases/filmJournal2.db";
             checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
 
         }catch(SQLiteException e){
@@ -124,18 +123,15 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     }
 
     public ArrayList<String> getCameras(){
-        String[] columns = new String[]{"_id", "Make", "Model"};
+        String[] columns = new String[]{"_id", "Make", "Model", "Nickname"};
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.query("Cameras", columns,"_id >= 1", null, null, null, null);
         ArrayList<String> results = new ArrayList<>();
         if(c!=null){
             c.moveToFirst();
             do {
-                long id = c.getLong(c.getColumnIndex("_id"));
-                String make = c.getString(c.getColumnIndex("Make"));
-                String model = c.getString(c.getColumnIndex("Model"));
-
-                results.add( Long.toString(id) + ": " + make + " " + model);
+                String nickname = c.getString(c.getColumnIndex("Nickname"));
+                results.add(nickname);
             }while(c.moveToNext());
         return results;
 
@@ -160,13 +156,6 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 int exposures = c.getInt(c.getColumnIndex("Exposures"));
                 String expireDate = c.getString(c.getColumnIndex("ExpireDate"));
                 String nickname = c.getString(c.getColumnIndex("Nickname"));
-
-                Cursor countC = db.rawQuery("select count(*) from FilmRolls where Brand = ? AND Type = ? AND ISO = ? AND Exposures = ?",new String[]{brand, type, Integer.toString(ISO), Integer.toString(exposures)});
-                countC.moveToFirst();
-                int count = countC.getInt(0);
-                countC.close();
-
-                nickname = nickname + " #" + Integer.toString(count);
                 results.add(nickname);
             }while(c.moveToNext());
             return results;

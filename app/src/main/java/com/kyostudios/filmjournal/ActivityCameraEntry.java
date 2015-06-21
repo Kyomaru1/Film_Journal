@@ -2,6 +2,7 @@ package com.kyostudios.filmjournal;
 
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -20,7 +21,7 @@ public class ActivityCameraEntry extends AppCompatActivity{
     EditText make;
     EditText model;
 
-    String makeText, modelText;
+    String makeText, modelText, nicknameText;
 
     @Override
     public void onCreate(Bundle SIS){
@@ -71,6 +72,14 @@ public class ActivityCameraEntry extends AppCompatActivity{
                 Object _id = bundle.get("ID_Value");
                 makeText = make.getText().toString().trim();
                 modelText = model.getText().toString().trim();
+
+                Cursor countC = db.rawQuery("Select count(*) where Make = ? and Model = ?", new String[]{makeText, modelText});
+                countC.moveToFirst();
+
+                int countTotal = countC.getInt(0);
+
+                countC.close();
+
                 id = (int) intent.getLongExtra("ID_Value", Integer.parseInt(_id.toString()));
                 ContentValues cv = new ContentValues();
                 cv.put("Make", makeText);
@@ -83,8 +92,16 @@ public class ActivityCameraEntry extends AppCompatActivity{
                 ContentValues cv = new ContentValues();
                 makeText = make.getText().toString().trim();
                 modelText = model.getText().toString().trim();
+                Cursor countC = db.rawQuery("Select count(*) where Make = ? and Model = ?", new String[]{makeText, modelText});
+                countC.moveToFirst();
+
+                int countTotal = countC.getInt(0);
+
+                countC.close();
+                nicknameText = makeText + " " + modelText + " #" + Integer.toString(countTotal + 1);
                 cv.put("Make", makeText);
                 cv.put("Model", modelText);
+                cv.put("Nickname", nicknameText);
                 db.insert("Cameras", null, cv);
                 db.close();
                 finish();
