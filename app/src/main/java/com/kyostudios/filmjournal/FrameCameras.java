@@ -23,7 +23,7 @@ import java.util.ArrayList;
  */
 public class FrameCameras extends Fragment {
     ArrayList<String> results = new ArrayList<>();
-    String[] dialogChoicesLongClick = new String[]{"Edit", "Delete"};
+    String[] dialogChoicesLongClick = new String[]{"Delete"};
     String[] columns = new String[]{"_id", "Make", "Model"};
     int recordPosition;
     boolean startEdit;
@@ -49,10 +49,19 @@ public class FrameCameras extends Fragment {
 
         final SQLiteDatabase db = new DatabaseHelper(getActivity().getApplicationContext()).getReadableDatabase();
         DatabaseHelper db2 = new DatabaseHelper(getActivity().getApplicationContext());
-        results = db2.getCameras();
+        String emptyCheck = "SELECT count(*) FROM Cameras";
+        Cursor countC = db.rawQuery(emptyCheck, null);
+        countC.moveToFirst();
+        int tableCount = countC.getInt(0);
+        if(tableCount>0) {
+            results = db2.getCameras();
+        }
+        else{
 
-        ListView content_cameras = (ListView) rootView.findViewById(R.id.listView_cameras);
-        content_cameras.setAdapter(new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.custom_listview_item, results));
+        }
+        final ListView content_cameras = (ListView) rootView.findViewById(R.id.listView_cameras);
+        final ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.custom_listview_item, results);
+        content_cameras.setAdapter(listAdapter);
         content_cameras.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
@@ -63,29 +72,13 @@ public class FrameCameras extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 switch (which) {
-                                    case 0: //Edit
-                                        int choice = position + 1;
-                                        Intent intent = new Intent(getActivity(), ActivityCameraEntry.class);
-                                        Cursor c = db.query("Cameras", columns, "_id = " + choice, null, null, null, null);
-                                        if(c!=null){
-                                            c.moveToFirst();
-                                            String l = c.getString(c.getColumnIndex("_id"));
-                                            String make = c.getString(c.getColumnIndex("Make"));
-                                            String model = c.getString(c.getColumnIndex("Model"));
-                                            startEdit = true;
-                                            intent.putExtra("Start_EDIT",startEdit);
-                                            intent.putExtra("ID_Value", l);
-                                            intent.putExtra("Make_MESSAGE", make);
-                                            intent.putExtra("Model_MESSAGE", model);
-                                            startActivity(intent);
-                                        }
-                                        c.close();
-                                        break;
-                                    case 1: //Delete
-                                        choice = position + 1;
-                                        intent = new Intent(getActivity(), ActivityCameraEntry.class);
-                                        db.delete("Cameras", "_id = " + choice, null);
-                                        onResume();
+
+                                    case 0: //Delete
+                                        String nickname = content_cameras.getItemAtPosition(position).toString();
+
+                                        String deleteNicknameStatement = "nickname = \"" + nickname +"\"";
+                                        db.delete("Cameras", deleteNicknameStatement, null);
+                                        listAdapter.notifyDataSetChanged();
                                         break;
                                 }
                             }
@@ -109,8 +102,18 @@ public class FrameCameras extends Fragment {
         Log.d("TESTING", "FrameCameras resumed");
         DatabaseHelper db = new DatabaseHelper(getActivity().getApplicationContext());
         db.startDatabase();
-        results = db.getCameras();
 
+        String emptyCheck = "SELECT count(*) FROM Cameras";
+        SQLiteDatabase db2 = new DatabaseHelper(getActivity().getApplicationContext()).getReadableDatabase();
+        Cursor countC = db2.rawQuery(emptyCheck, null);
+        countC.moveToFirst();
+        int tableCount = countC.getInt(0);
+        if(tableCount>0) {
+            results = db.getCameras();
+        }
+        else{
+
+        }
         ListView content_cameras = (ListView) rootView.findViewById(R.id.listView_cameras);
         content_cameras.setAdapter(new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.custom_listview_item, results));
         super.onResume();

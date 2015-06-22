@@ -73,7 +73,7 @@ public class ActivityCameraEntry extends AppCompatActivity{
                 makeText = make.getText().toString().trim();
                 modelText = model.getText().toString().trim();
 
-                Cursor countC = db.rawQuery("Select count(*) where Make = ? and Model = ?", new String[]{makeText, modelText});
+                Cursor countC = db.rawQuery("Select count(*) from Cameras where Make = ? and Model = ?", new String[]{makeText, modelText});
                 countC.moveToFirst();
 
                 int countTotal = countC.getInt(0);
@@ -92,7 +92,7 @@ public class ActivityCameraEntry extends AppCompatActivity{
                 ContentValues cv = new ContentValues();
                 makeText = make.getText().toString().trim();
                 modelText = model.getText().toString().trim();
-                Cursor countC = db.rawQuery("Select count(*) where Make = ? and Model = ?", new String[]{makeText, modelText});
+                Cursor countC = db.rawQuery("Select count(*)from Cameras where Make = ? and Model = ?", new String[]{makeText, modelText});
                 countC.moveToFirst();
 
                 int countTotal = countC.getInt(0);

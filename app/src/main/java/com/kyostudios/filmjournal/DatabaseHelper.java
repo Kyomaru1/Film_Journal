@@ -116,10 +116,11 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         if(checkDB != null){
 
             checkDB.close();
-
+            return checkDB != null ? true : false;
         }
+        else
+            return false;
 
-        return checkDB != null ? true : false;
     }
 
     public ArrayList<String> getCameras(){
