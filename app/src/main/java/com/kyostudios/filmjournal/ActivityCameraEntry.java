@@ -73,13 +73,6 @@ public class ActivityCameraEntry extends AppCompatActivity{
                 makeText = make.getText().toString().trim();
                 modelText = model.getText().toString().trim();
 
-                Cursor countC = db.rawQuery("Select count(*) from Cameras where Make = ? and Model = ?", new String[]{makeText, modelText});
-                countC.moveToFirst();
-
-                int countTotal = countC.getInt(0);
-
-                countC.close();
-
                 id = (int) intent.getLongExtra("ID_Value", Integer.parseInt(_id.toString()));
                 ContentValues cv = new ContentValues();
                 cv.put("Make", makeText);
@@ -92,11 +85,10 @@ public class ActivityCameraEntry extends AppCompatActivity{
                 ContentValues cv = new ContentValues();
                 makeText = make.getText().toString().trim();
                 modelText = model.getText().toString().trim();
-                Cursor countC = db.rawQuery("Select count(*)from Cameras where Make = ? and Model = ?", new String[]{makeText, modelText});
-                countC.moveToFirst();
+                Cursor countC = db.rawQuery("Select * from Cameras where Make = ? and Model = ?", new String[]{makeText, modelText});
+                countC.moveToLast();
 
-                int countTotal = countC.getInt(0);
-
+                int countTotal = countC.getColumnIndex("Number");
                 countC.close();
                 nicknameText = makeText + " " + modelText + " #" + Integer.toString(countTotal + 1);
                 cv.put("Make", makeText);

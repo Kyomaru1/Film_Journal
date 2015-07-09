@@ -60,7 +60,7 @@ public class FrameCameras extends Fragment {
 
         }
         final ListView content_cameras = (ListView) rootView.findViewById(R.id.listView_cameras);
-        final ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.custom_listview_item, results);
+        final ArrayAdapter<String> listAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, results);
         content_cameras.setAdapter(listAdapter);
         content_cameras.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override

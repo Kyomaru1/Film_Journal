@@ -74,14 +74,14 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                     "RollNumber INTEGER, Brand TEXT, Type TEXT, ISO INTEGER, Exposures INTEGER, " +
                     "ExpireDate TEXT, Nickname TEXT);");
             db.execSQL("CREATE TABLE Cameras (_id INTEGER PRIMARY KEY AUTOINCREMENT, Make TEXT, " +
-                    "Model TEXT, Nickname TEXT);");
+                    "Model TEXT, Number INTEGER, Nickname TEXT);");
             db.execSQL("CREATE TABLE Lenses (_id INTEGER PRIMARY KEY AUTOINCREMENT, Make TEXT, " +
                     "Model TEXT, Type TEXT, MinF REAL, MaxF REAL, MinLength INTEGER, " +
-                    "MaxLength INTEGER, Autofocus INTEGER, Nickname TEXT);");
+                    "MaxLength INTEGER, Autofocus INTEGER, Number INTEGER, Nickname TEXT);");
             db.execSQL("CREATE TABLE Photos (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     "RollNumber INTEGER, Name TEXT, RollPosition INTEGER, fStop REAL, " +
                     "ShutterSpeed TEXT, FocalLength INTEGER, ExposureComp REAL, Flash INTEGER, " +
-                    "Camera INTEGER, Lens INTEGER, Nickname TEXT);");
+                    "Camera INTEGER, Lens INTEGER, Number INTEGER, Nickname TEXT);");
             Log.d("TESTING", "Created table FilmRolls");
             Log.d("TESTING", "Created table Cameras");
             Log.d("TESTING", "Created table Lenses");
